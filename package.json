@@ -1,6 +1,6 @@
 {
   "name": "with-env",
-  "version": "0.0.1",
+  "version": "1.0.0",
   "description": "Read and then apply .env file in the working directory, assuming the .env exists",
   "author": {
     "name": "matthewh",
