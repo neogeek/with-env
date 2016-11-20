@@ -8,18 +8,22 @@ exports = module.exports = function envApply () {
   try {
     document = $read('./.env').toString().split('\n');
   } catch (exception) {
-    throw new Error('The .env file could not be found or read correctly. Are you sure it is in the root directory?');
+    process.stderr.write('The .env file could not be found or read correctly. Are you sure it is in the root directory?\n');
   }
 
-  var i = -1;
-  var row;
+  if (document && document.length) {
 
-  while(++i < document.length) {
-    if (!document[i]) {
-      continue;
+    var i = -1;
+    var row;
+
+    while(++i < document.length) {
+      if (!document[i]) {
+        continue;
+      }
+      row = document[i].split(/\s*=\s*/);
+      process.env[row.shift()] = row.join('=').replace(/['"]/g, '');
     }
-    row = document[i].split(/\s*=\s*/);
-    process.env[row.shift()] = row.join('=').replace(/['"]/g, '');
+
   }
 
 }
